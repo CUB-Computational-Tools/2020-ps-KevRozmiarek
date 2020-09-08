@@ -7,18 +7,35 @@ output: html_document
 
 # Questions
 
-1. You just got your BB gun for Christmas but all is for naught because an astroid is bearing down on Earth! The astroid is $1  \times 10^{15} kg$ and moving at $2 \times 10^{4} m/s$. Fortunatly you have quite a few BBs which weigh $0.0002 kg$ and you can fire them at $60 m/s$. How many BBs will it take to stop the astroid and save Earth?
+1. Let me add that the approximate temperature dependence of the fractionation factor for water evaporation in reality follows this expression $\alpha = 0.9822e^{(7.9448 /T)}$ Show the curve for $\delta$ value of the liquid as a function of remaining unevaporated liquid. The starting isotope value of the water is $\delta = -20$ and the water is held at 35°C. Why do you think this number is so high?
 
-Answer: Using $m_{astroid}v_{astroid}=x \times m_{bb}v_{bb}$. We can calculate by solving for x that it will take $1.67 \times 10^{21}$ BBs to reduce the momentum of the astroid to 0.
+Answer: 
 
+```{r message=FALSE}
+library(tidyverse)
+plot_Data_Neg_twenty <- tibble(
+  remaining_Water_Fraction = rev(seq(0.01,1,0.01)),
+  temperature = -35
+)
 
-2. Rank these cars by their momentum.
-  * Car 1: $800 kg$ going $1 m/s$
-  * Car 2: $1000 kg$ going $2 m/s$
-  * Car 3: $90 kg$ going $8 m/s$
-  
-Answer: Using $\rho = mv$, we canrank the cars by momuntum as 2,1,3 in highest to lowest momentum.
+plot_Data_Neg_twenty <- plot_Data_Neg_twenty %>%
+  mutate(d18O = (-20 + 1000)*(remaining_Water_Fraction^(0.9822*exp(7.9448/temperature)-1))-1000)
+```
 
-3. I am going to claim that momentum is always conserved, even in inelastic collisions. If that is true and you watched something heat up (say a [chicken](https://www.wired.com/story/how-many-times-do-you-have-to-slap-a-chicken-to-cook-it/)) by something hitting it, speculate where the momentum goes if the chicken doesn't move as fast as you'd expect after the collison.
+```{r}
+library(ggplot2)
+theplot <- ggplot(plot_Data_Neg_twenty, aes(x = remaining_Water_Fraction,y = d18O)) + 
+  geom_point(aes(x = remaining_Water_Fraction,y = d18O))
 
-Points will be given for any answer. When objects collide, they often undergo a physical change called deformation which requires an energy input. An additional component of energy will go into heat production as well. You'll notice that in this description I have used **energy** twice. In the future we will use energetics to better represent more complicated systems.
+plot(theplot)
+```
+
+The number is high because reality includes condensation and an experiment that tests for fractionation factor would observe that.
+
+2. Speculate on how you would determine the isotope value for two independent fractionations happening at once.
+
+Answer: You could add the factors linearily such as:
+
+$$
+\delta_{l} = (\delta_{l,0} + 1000)(f^{\alpha_{1}-1} + f^{\alpha_{2}-1}) - 1000
+$$

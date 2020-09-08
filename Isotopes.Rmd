@@ -81,8 +81,6 @@ plot(theplot)
 
 # Questions
 
-1. 0.9822e^(7.9448 /T) temp dependence http://www.geo.cornell.edu/geology/classes/Geo656/656notes03/656%2003Lecture27.pdf what type of isotope effect is this?
+1. Let me add that the approximate temperature dependence of the fractionation factor for water evaporation follows this expression $\alpha = 0.9822e^{(7.9448 /T)}$ Show the curve for $\delta$ value of the liquid as a function of remaining unevaporated liquid. The starting isotope value of the water is $\delta = -20$ and the water is held at 35°C. With the temperature dependence, what type of isotope effect is this and why?
 
-2. Show the curve for a different starting isotope value and frac factor
-
-3. Speculate on how you would determine the isotope value for two independent fractionations happening at once
+2. Speculate on how you would determine the isotope value for two independent fractionations happening at once.
