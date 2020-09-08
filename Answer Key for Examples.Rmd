@@ -30,7 +30,7 @@ theplot <- ggplot(plot_Data_Neg_twenty, aes(x = remaining_Water_Fraction,y = d18
 plot(theplot)
 ```
 
-The number is high because reality includes condensation and an experiment that tests for fractionation factor would observe that.
+Example answer: The number is high because reality includes condensation and an experiment that tests for fractionation factor would observe that.
 
 2. Speculate on how you would determine the isotope value for two independent fractionations happening at once.
 
