@@ -17,15 +17,15 @@ editor_options:
 
 # Learning Goals
 
-1. Understand the role of **fractionation factors** in seperating isotopes in different reservoirs
+1. Understand the role of **fractionation factors** in separating isotopes in different reservoirs
 
 2. Understand the difference between **equilibrium isotope fractionation** and **kinetic isotopic fractionation**
 
-3. Be able to numerically demostrate the seperation of two isotopic reservoirs by evaporation. 
+3. Be able to numerically demonstrate the separation of two isotopic reservoirs by evaporation. 
 
 # Background
 
-Because we just finished our lesson on what isotopes are and their notation *cough*, it is time to talk about **isotope fractionation**. **Isotope fractionation** is the seperation or partioning of a reservoir(s) stable isotopes due to a processe that use masses differently. Some processes depend on the relative differences in the masses of different isotopes (**equilibrium isotopic fractionation**). Other processes depend on rate-dependent transfers or site-specific chemical binding effects (**kinetic isotopic fractionation**).
+Because we just finished our lesson on what isotopes are and their notation *cough*, it is time to talk about **isotope fractionation**. **Isotope fractionation** is the separation or partitioning of a reservoir(s) stable isotopes due to a processe that use masses differently. Some processes depend on the relative differences in the masses of different isotopes (**equilibrium isotopic fractionation**). Other processes depend on rate-dependent transfers or site-specific chemical binding effects (**kinetic isotopic fractionation**).
 
 Today we are going to talk about the evaporation of water which happens to be an example of a rate-dependent kinetic fractionation. Well... its kinetic in very dry air. Let's not go there for now. The fractionation from a process is described by using an often empirically derived non-dimensional parameter called a **fractionation factor**. Evaporation is refer to a type of fractionation called a **Rayleigh distillation**. In an **open system**, isotopes will not return to the original reservoir once evaporated. At this point, we can write out a general form for a Rayleigh distillation that will tell us the isotopic ratio of the reservoir as a function of the remaining amount that hasn't been evaporated.
 
@@ -45,7 +45,7 @@ where *o* stands for the initial δ-value of the liquid (*l*) for the case when 
 
 # Example
 
-The emprically derived fractionation factor associated with the phase transition during evaporation, vapor-liquid = 0.990 at 25°C. Think of this as saying that the new vapor is 10‰ lighter than the residual water. Now let's use the above equation to calculate the curve for a starting water delta value of $\delta = -10$.
+The empirically derived fractionation factor associated with the phase transition during evaporation, vapor-liquid = 0.990 at 25°C. Think of this as saying that the new vapor is 10‰ lighter than the residual water. Now let's use the above equation to calculate the curve for a starting water delta value of $\delta = -10$.
 
 ```{r, message=FALSE}
 library(tidyverse)

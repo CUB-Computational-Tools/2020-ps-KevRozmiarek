@@ -34,7 +34,7 @@ Example answer: The number is high because reality includes condensation and an 
 
 2. Speculate on how you would determine the isotope value for two independent fractionations happening at once.
 
-Answer: You could add the factors linearily such as:
+Answer: You could add the factors linearly such as:
 
 $$
 \delta_{l} = (\delta_{l,0} + 1000)(f^{\alpha_{1}-1} + f^{\alpha_{2}-1}) - 1000
