@@ -1,0 +1,86 @@
+---
+title: "Isotopes Fractionation"
+subtitle: "Isoptopes are isoDOPE"
+author: "Kevin Rozmiarek"
+date: "Last knitted `r format(Sys.Date(), '%d %b %Y')`"
+output:
+  html_document: 
+    df_print: paged
+    number_sections: yes
+    toc: yes
+    toc_float: true
+    toc_depth: 3
+    code_folding: show
+editor_options:
+  chunk_output_type: inline
+---
+
+# Learning Goals
+
+1. Understand the role of **fractionation factors** in separating isotopes in different reservoirs
+
+2. Understand the difference between **equilibrium isotope fractionation** and **kinetic isotopic fractionation**
+
+3. Be able to numerically demonstrate the separation of two isotopic reservoirs by evaporation. 
+
+# Background
+
+Because we just finished our lesson on what isotopes are and their notation *cough*, it is time to talk about **isotope fractionation**. **Isotope fractionation** is the separation or partitioning of a reservoir(s) stable isotopes due to a processe that use masses differently. Some processes depend on the relative differences in the masses of different isotopes (**equilibrium isotopic fractionation**). Other processes depend on rate-dependent transfers or site-specific chemical binding effects (**kinetic isotopic fractionation**).
+
+Today we are going to talk about the evaporation of water which happens to be an example of a rate-dependent kinetic fractionation. Well... its kinetic in very dry air. Let's not go there for now. The fractionation from a process is described by using an often empirically derived non-dimensional parameter called a **fractionation factor**. Evaporation is refer to a type of fractionation called a **Rayleigh distillation**. In an **open system**, isotopes will not return to the original reservoir once evaporated. At this point, we can write out a general form for a Rayleigh distillation that will tell us the isotopic ratio of the reservoir as a function of the remaining amount that hasn't been evaporated.
+
+$$
+\frac{R}{R_{0}} = f^{\alpha-1}
+$$
+
+where *R* = ratio of the isotopes (e.g., 18O/16O) left in the reservoir, *Ro* = initial ratio, *f* = fraction of material remaining in the reservoir, and *α* is the fractionation factor.
+
+We can do some algebra now and rewrite this in $\delta$ notation. I will spare you the trouble.
+
+$$
+\delta_{l} = (\delta_{l,0} + 1000)f^{\alpha-1} - 1000
+$$
+
+where *o* stands for the initial δ-value of the liquid (*l*) for the case when α is the fractionation factor between vapor and liquid αvapor-liquid, and f is the fraction of liquid remaining.
+
+# Example
+
+The empirically derived fractionation factor associated with the phase transition during evaporation, vapor-liquid = 0.990 at 25°C. Think of this as saying that the new vapor is 10‰ lighter than the residual water. Now let's use the above equation to calculate the curve for a starting water delta value of $\delta = -10$.
+
+```{r, message=FALSE}
+library(tidyverse)
+
+# session info
+data <- tibble(
+  `d18O_0` = seq(-10,30,10),
+  alpha = 0.990,
+)
+
+#Adding column for calculated term
+data <- data %>%
+  mutate(d18O_50 = (d18O_0 + 1000)*(0.5^(alpha-1))-1000)
+
+#Data for plotting at one start value of d180
+plot_Data_Neg_ten <- tibble(
+  remaining_Water_Fraction = rev(seq(0.01,1,0.01)),
+  alpha = 0.990
+)
+
+#Adding column for calculated term
+plot_Data_Neg_ten <- plot_Data_Neg_ten %>%
+  mutate(d18O = (-10 + 1000)*(remaining_Water_Fraction^(alpha-1))-1000)
+```
+
+```{r}
+library(ggplot2)
+theplot <- ggplot(plot_Data_Neg_ten, aes(x = remaining_Water_Fraction,y = d18O)) + 
+  geom_point(aes(x = remaining_Water_Fraction,y = d18O))
+
+plot(theplot)
+```
+
+# Questions
+
+1. Let me add that the approximate temperature dependence of the fractionation factor for water evaporation follows this expression $\alpha = 0.9822e^{(7.9448 /T)}$ Show the curve for $\delta$ value of the liquid as a function of remaining unevaporated liquid. The starting isotope value of the water is $\delta = -20$ and the water is held at 35°C. Why do you think these numbers are so high?
+
+2. Speculate on how you would determine the isotope value for two independent fractionations happening at once.
