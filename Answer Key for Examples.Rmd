@@ -20,9 +20,7 @@ plot_Data_Neg_twenty <- tibble(
 
 plot_Data_Neg_twenty <- plot_Data_Neg_twenty %>%
   mutate(d18O = (-20 + 1000)*(remaining_Water_Fraction^(0.9822*exp(7.9448/temperature)-1))-1000)
-```
 
-```{r}
 library(ggplot2)
 theplot <- ggplot(plot_Data_Neg_twenty, aes(x = remaining_Water_Fraction,y = d18O)) + 
   geom_point(aes(x = remaining_Water_Fraction,y = d18O))
