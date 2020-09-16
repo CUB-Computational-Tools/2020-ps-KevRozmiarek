@@ -29,7 +29,7 @@ editor_options:
 
 1. Have an understanding of what **isotopes** are and how to express them in different notations.
 
-2. Basic understanding of **R** programming, graphing, and tibble manipulation.
+2. Basic understanding of **R** programming, flow control, graphing, and tibble manipulation.
 
 # Background
 
@@ -77,7 +77,7 @@ for (i in 1:length(starting_delta_values)) { #Iteratively adding columns for eac
   mutate(!!sym(toString(starting_delta_values[i])) :=  remaining_Delta(starting_delta_values[i], remaining_Water_Fraction, alpha))
 }
 
-#print(calculated_Data)
+print(calculated_Data)
 
 ```
 

@@ -1,0 +1,41 @@
+---
+title: "Answer Key for Examples"
+author: "Kevin Rozmiarek"
+date: "9/1/2020"
+output: html_document
+---
+
+# Questions
+
+1. Let me add that the approximate temperature dependence of the fractionation factor for water evaporation in reality follows this expression $\alpha = 0.9822e^{(7.9448 /T)}$ Show the curve for $\delta$ value of the liquid as a function of remaining unevaporated liquid. The starting isotope value of the water is $\delta = -20$ and the water is held at 35°C. Why do you think these numbers are so high?
+
+Answer: 
+
+```{r message=FALSE}
+library(tidyverse)
+plot_Data_Neg_twenty <- tibble(
+  remaining_Water_Fraction = rev(seq(0.01,1,0.01)),
+  temperature = -35
+)
+
+plot_Data_Neg_twenty <- plot_Data_Neg_twenty %>%
+  mutate(d18O = (-20 + 1000)*(remaining_Water_Fraction^(0.9822*exp(7.9448/temperature)-1))-1000)
+```
+
+```{r}
+library(ggplot2)
+theplot <- ggplot(plot_Data_Neg_twenty, aes(x = remaining_Water_Fraction,y = d18O)) + 
+  geom_point(aes(x = remaining_Water_Fraction,y = d18O))
+
+plot(theplot)
+```
+
+Example answer: The number is high because reality includes condensation and an experiment that tests for fractionation factor would observe that.
+
+2. Speculate on how you would determine the isotope value for two independent fractionations happening at once.
+
+Answer: You could add the factors linearly such as:
+
+$$
+\delta_{l} = (\delta_{l,0} + 1000)(f^{\alpha_{1}-1} + f^{\alpha_{2}-1}) - 1000
+$$

@@ -1,0 +1,24 @@
+---
+title: "Answer Key for Examples"
+author: "Kevin Rozmiarek"
+date: "9/1/2020"
+output: html_document
+---
+
+# Questions
+
+1. You just got your BB gun for Christmas but all is for naught because an astroid is bearing down on Earth! The astroid is $1  \times 10^{15} kg$ and moving at $2 \times 10^{4} m/s$. Fortunatly you have quite a few BBs which weigh $0.0002 kg$ and you can fire them at $60 m/s$. How many BBs will it take to stop the astroid and save Earth?
+
+Answer: Using $m_{astroid}v_{astroid}=x \times m_{bb}v_{bb}$. We can calculate by solving for x that it will take $1.67 \times 10^{21}$ BBs to reduce the momentum of the astroid to 0.
+
+
+2. Rank these cars by their momentum.
+  * Car 1: $800 kg$ going $1 m/s$
+  * Car 2: $1000 kg$ going $2 m/s$
+  * Car 3: $90 kg$ going $8 m/s$
+  
+Answer: Using $\rho = mv$, we canrank the cars by momuntum as 2,1,3 in highest to lowest momentum.
+
+3. I am going to claim that momentum is always conserved, even in inelastic collisions. If that is true and you watched something heat up (say a [chicken](https://www.wired.com/story/how-many-times-do-you-have-to-slap-a-chicken-to-cook-it/)) by something hitting it, speculate where the momentum goes if the chicken doesn't move as fast as you'd expect after the collison.
+
+Points will be given for any answer. When objects collide, they often undergo a physical change called deformation which requires an energy input. An additional component of energy will go into heat production as well. You'll notice that in this description I have used **energy** twice. In the future we will use energetics to better represent more complicated systems.
