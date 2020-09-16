@@ -28,7 +28,7 @@ theplot <- ggplot(plot_Data_Neg_twenty, aes(x = remaining_Water_Fraction,y = d18
 plot(theplot)
 ```
 
-Example answer: The number is high because reality includes condensation and an experiment that tests for fractionation factor would observe that.
+Example answer: The number is high because reality includes condensation and an experiment that tests for fractionation factor would observe that. Because the process we have approximated to be unidirectional, we consider it a kinetic isotope fractionation.
 
 2. Speculate on how you would determine the isotope value for two independent fractionations happening at once.
 
