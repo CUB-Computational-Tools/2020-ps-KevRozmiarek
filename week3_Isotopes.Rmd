@@ -50,7 +50,7 @@ $$
 \delta_{l} = (\delta_{l,0} + 1000)f^{\alpha-1} - 1000
 $$
 
-where *o* stands for the initial δ-value of the liquid (*l*) for the case when α is the fractionation factor between vapor and liquid αvapor-liquid, and f is the fraction of liquid remaining.
+where *0* stands for the initial δ-value of the liquid (*l*) for the case when α is the fractionation factor between vapor and liquid αvapor-liquid, and f is the fraction of liquid remaining.
 
 # Example
 
@@ -60,8 +60,8 @@ The empirically derived fractionation factor associated with the phase transitio
 library(dplyr)
 
 # session info
-starting_delta_values = seq(-10,30,10)
-alpha = 0.990
+starting_delta_values = seq(-10,30,10) #Starting delta valuyes for the resevoir
+alpha = 0.990 #An example fractionation factor
 
 remaining_Delta <- function(starting_delta_values, remaining_Water_Fraction, alpha) #Function which calculates the isotope value for the remaining water post-process
 {
