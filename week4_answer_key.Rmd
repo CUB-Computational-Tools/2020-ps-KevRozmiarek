@@ -14,12 +14,12 @@ Answer:
 ```{r message=FALSE}
 library(tidyverse)
 plot_Data_Neg_twenty <- tibble(
-  remaining_Water_Fraction = rev(seq(0.01,1,0.01)),
+  remaining_Water_Fraction = rev(seq(0.01, 1, 0.01)),
   temperature = -35
 )
 
 plot_Data_Neg_twenty <- plot_Data_Neg_twenty %>%
-  mutate(d18O = (-20 + 1000)*(remaining_Water_Fraction^(0.9822*exp(7.9448/temperature)-1))-1000)
+  mutate(d18O = (-20 + 1000) * (remaining_Water_Fraction ^ (0.9822 * exp(7.9448 / temperature) - 1)) - 1000)
 
 library(ggplot2)
 theplot <- ggplot(plot_Data_Neg_twenty, aes(x = remaining_Water_Fraction,y = d18O)) + 
@@ -51,11 +51,11 @@ alpha = 0.990
 
 remaining_Delta <- function(starting_delta_values, remaining_Water_Fraction, alpha) #Function which calculates the isotope value for the remaining water post-process
 {
-  remaining_Delta = (starting_delta_values +   1000)*(remaining_Water_Fraction^(alpha-1))-1000
+  remaining_Delta = (starting_delta_values + 1000) * (remaining_Water_Fraction ^ (alpha - 1)) - 1000
   return(remaining_Delta)
 }
 
-calculated_Data <- tibble(remaining_Water_Fraction = seq(0.01,1,0.01)) #tibble for plotting
+calculated_Data <- tibble(remaining_Water_Fraction = seq(0.01, 1, 0.01)) #tibble for plotting
 
 for (i in 1:length(measured_Data)) { #Iteratively adding columns for each of the starting values for all the remaining water fractions. USED FOR QUESTION 3 BELOW
   if( any(is.na(measured_Data[[i]])))
