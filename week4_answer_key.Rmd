@@ -1,0 +1,75 @@
+---
+title: "Answer Key for Examples"
+author: "Kevin Rozmiarek"
+date: "9/1/2020"
+output: html_document
+---
+
+# Questions
+
+1. Let me add that the approximate temperature dependence of the fractionation factor for water evaporation in reality follows this expression $\alpha = 0.9822e^{(7.9448 /T)}$ Show the curve for $\delta$ value of the liquid as a function of remaining unevaporated liquid. The starting isotope value of the water is $\delta = -20$ and the water is held at 35°C. Why do you think these numbers are so high?
+
+Answer: 
+
+```{r message=FALSE}
+library(tidyverse)
+plot_Data_Neg_twenty <- tibble(
+  remaining_Water_Fraction = rev(seq(0.01, 1, 0.01)),
+  temperature = -35
+)
+
+plot_Data_Neg_twenty <- plot_Data_Neg_twenty %>%
+  mutate(d18O = (-20 + 1000) * (remaining_Water_Fraction ^ (0.9822 * exp(7.9448 / temperature) - 1)) - 1000)
+
+library(ggplot2)
+theplot <- ggplot(plot_Data_Neg_twenty, aes(x = remaining_Water_Fraction,y = d18O)) + 
+  geom_point(aes(x = remaining_Water_Fraction,y = d18O))
+
+plot(theplot)
+```
+
+Example answer: The number is high because reality includes condensation and an experiment that tests for fractionation factor would observe that. Because the process we have approximated to be unidirectional, we consider it a kinetic isotope fractionation.
+
+2. Speculate on how you would determine the isotope value for two independent fractionations happening at once.
+
+Answer: You could add the factors linearly such as:
+
+$$
+\delta_{l} = (\delta_{l,0} + 1000)(f^{\alpha_{1}-1} + f^{\alpha_{2}-1}) - 1000
+$$
+
+3. Below is a new vector of some measured starting $\delta$ data. Modify the if statement in the for loop to be able to handle this tibble and show the resulting dataset. Hint: Think about how we might use the is.na(tibbleName) catch.
+
+Answer:
+
+```{r}
+measured_Data = c(-10, NA, 20, 30)
+
+library(dplyr)
+
+alpha = 0.990
+
+remaining_Delta <- function(starting_delta_values, remaining_Water_Fraction, alpha) #Function which calculates the isotope value for the remaining water post-process
+{
+  remaining_Delta = (starting_delta_values + 1000) * (remaining_Water_Fraction ^ (alpha - 1)) - 1000
+  return(remaining_Delta)
+}
+
+calculated_Data <- tibble(remaining_Water_Fraction = seq(0.01, 1, 0.01)) #tibble for plotting
+
+for (i in 1:length(measured_Data)) { #Iteratively adding columns for each of the starting values for all the remaining water fractions. USED FOR QUESTION 3 BELOW
+  if( any(is.na(measured_Data[[i]])))
+  {
+  warning('Yo, fixing your data ') #catch for bad data
+  measured_Data[is.na(measured_Data)] <- 0 #Replacing the column to go to the tibble to be nothing.
+    }
+  else
+  calculated_Data <- calculated_Data %>%
+  mutate(!!sym(toString(measured_Data[i])) :=  remaining_Delta(measured_Data[i], remaining_Water_Fraction, alpha))
+}
+
+print(calculated_Data)
+
+```
+
+```

@@ -1,0 +1,117 @@
+---
+title: "Isotopes Fractionation"
+subtitle: "Isoptopes are isoDOPE"
+author: "Kevin Rozmiarek"
+date: "Last knitted `r format(Sys.Date(), '%d %b %Y')`"
+output:
+  html_document: 
+    df_print: paged
+    number_sections: yes
+    toc: yes
+    toc_float: true
+    toc_depth: 3
+    code_folding: show
+editor_options:
+  chunk_output_type: inline
+---
+
+# Learning Goals
+
+1. Understand the role of **fractionation factors** in separating isotopes in different reservoirs
+
+2. Understand the difference between **equilibrium isotope fractionation** and **kinetic isotopic fractionation**
+
+3. Be able to numerically demonstrate the isotopic evolution of a water reservoir as a consequence of evaporation
+
+4. Be able to manipulate and deal with bad input data.
+
+# Prerequisites
+
+1. Have an understanding of what **isotopes** are and how to express them in different notations.
+
+2. Basic understanding of **R** programming, flow control, graphing, and tibble manipulation.
+
+# Background
+
+Because we just finished our lesson on what isotopes are and their notation *cough*, it is time to talk about **isotope fractionation**. **Isotope fractionation** is the separation or partitioning of a reservoir(s) stable isotopes due to a processe that use masses differently. Some processes depend on the relative differences in the masses of different isotopes in chemical equilibrium (**equilibrium isotopic fractionation**). Other processes depend on rate-dependent transfers or site-specific chemical binding effects (**kinetic isotopic fractionation**).
+
+Today we are going to talk about the evaporation of water which happens to be an example of a rate-dependent kinetic fractionation. Well... its kinetic in very dry air. Let's not go there for now. The fractionation from a process is described by using an often empirically derived non-dimensional parameter called a **fractionation factor**. Evaporation is considered to be a type of fractionation called a **Rayleigh distillation**. In an **open system**, isotopes will not return to the original reservoir once evaporated. At this point, we can write out a general form for a Rayleigh distillation that will tell us the isotopic ratio of the reservoir as a function of the remaining amount that hasn't been evaporated.
+
+$$
+\frac{R}{R_{0}} = f^{\alpha-1}
+$$
+
+where *R* = ratio of the isotopes (e.g., 18O/16O) left in the reservoir, *Ro* = initial ratio, *f* = fraction of material remaining in the reservoir, and *α* is the fractionation factor.
+
+We can do some algebra now and rewrite this in $\delta$ notation. I will spare you the trouble.
+
+$$
+ \\
+\delta_{l} = (\delta_{l,0} + 1000)f^{\alpha-1} - 1000
+$$
+
+where *0* stands for the initial δ-value of the liquid (*l*) for the case when α is the fractionation factor between vapor and liquid αvapor-liquid, and f is the fraction of liquid remaining.
+
+# Example
+
+The empirically derived fractionation factor associated with the phase transition during evaporation, vapor-liquid = 0.990 at 25°C. Think of this as saying that the new vapor is 10‰ lighter than the residual water. Now let's use the above equation to calculate the curve for a starting water delta value of a series of $\delta$ values from $\delta = -10$ to $\delta = -30$ permil.
+
+```{r, message=FALSE}
+library(dplyr)
+
+# session info
+starting_delta_values = seq(-10, 30, 10) #Starting delta values for the resevoir
+alpha = 0.990 #An example fractionation factor
+
+remaining_Delta <- function(starting_delta_values, remaining_Water_Fraction, alpha) #Function which calculates the isotope value for the remaining water post-process
+{
+  remaining_Delta = (starting_delta_values + 1000) * (remaining_Water_Fraction ^ (alpha - 1)) - 1000 #Application of equation 2
+  return(remaining_Delta)
+}
+
+calculated_Data <- tibble(remaining_Water_Fraction = seq(0.01, 1, 0.01)) #tibble for plotting
+
+for (i in 1:length(starting_delta_values)) { #Iteratively adding columns for each of the starting values for all the remaining water fractions. USED FOR QUESTION 3 BELOW
+  if( any(is.na(starting_delta_values)) ) warning('Yo, fix your data') #catch for bad data
+  else
+  calculated_Data <- calculated_Data %>%
+  mutate(!!sym(toString(starting_delta_values[i])) :=  remaining_Delta(starting_delta_values[i], remaining_Water_Fraction, alpha)) #Building the data with the function for remaining isotope value
+}
+
+print(calculated_Data)
+
+```
+
+```{r}
+library(ggplot2)
+
+produce_Plot <- function(...) { #Making a plot as a function. Takes y axis as input
+  titley <- paste("Starting delta of 18O: ", toString(starting_delta_values[i]), " permil") #Building the plot title
+  plot <- ggplot(calculated_Data) + 
+  geom_point(aes(x = remaining_Water_Fraction, ...))+ #Points but we take the unknown input and stuff it into the y axis
+  labs(y = titley , x = "Remaining Water Fraction")
+  
+  return(plot)
+  }
+
+i <- 1 #Iteratively making a plot for each starting value using the above function
+while (i < length(starting_delta_values)) {
+temp_Plot <- produce_Plot(y = !!sym(toString(starting_delta_values[i])))
+print(temp_Plot)
+i = i + 1
+}
+
+```
+
+
+# Questions
+
+1. Let me add that the approximate temperature dependence of the fractionation factor for water evaporation follows this expression $\alpha = 0.9822e^{(7.9448 /T)}$ Show the curve for $\delta$ value of the liquid as a function of remaining unevaporated liquid. The starting isotope value of the water is $\delta = -20$ and the water is held at 35°C. Why do you think these numbers are so high and how does this all relate to us calling this system kinetic?
+
+2. Speculate on how you would determine the isotope value for two independent fractionations happening at once.
+
+3. Below is a new vector of some measured starting $\delta$ data. Modify the if statement in the for loop to be able to handle this tibble and show the resulting dataset. Hint: Think about how we might use the is.na(tibbleName) catch.
+
+```{r}
+measured_Data = c(-10, NA, 20, 30)
+```
