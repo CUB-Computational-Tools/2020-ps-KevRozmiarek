@@ -106,19 +106,13 @@ Before you start designing your problem set for any given week, please complete 
 
 > Instructions: Only keep the one link you want your instructor(s) to use. This uses the `master` branch so will only have your newest notebook once you have merged your pull request for the week.
 
-<a href='https://mybinder.org/v2/gh/CUB-Computational-Tools/2020-ps-KevRozmiarek/binder-R?urlpath=git-pull?repo=https%3A%2F%2Fgithub.com%2FCUB-Computational-Tools%2F2020-ps-KevRozmiarek%26branch%3Dmaster%26urlpath%3Drstudio'><img src='https://img.shields.io/badge/launch%20final-R+RStudio-blue.svg'/></a>
+<a href='https://mybinder.org/v2/gh/CUB-Computational-Tools/2020-ps-KevRozmiarek/binder-R?urlpath=git-pull?repo=https%3A%2F%2Fgithub.com%2FCUB-Computational-Tools%2F2020-ps-KevRozmiarek%26branch%3Dmaster%26urlpath%3Drstudio'><img src='https://img.shields.io/badge/launch%20draft-Py+Jupyter%20Lab-red.svg'/></a>
 
 # Week 6
-
-#### Binder link for peer reviewers
-
-> Only keep the one link you want your peer reviewers to use. Note that these will only work once the `week6` branch exists.
-
-<a href='https://mybinder.org/v2/gh/CUB-Computational-Tools/2020-ps-KevRozmiarek/binder-R?urlpath=git-pull?repo=https%3A%2F%2Fgithub.com%2FCUB-Computational-Tools%2F2020-ps-KevRozmiarek%26branch%3Dweek6%26urlpath%3Drstudio'><img src='https://img.shields.io/badge/launch%20draft-R+RStudio-blue.svg'/></a>
 
 #### Binder link for final version
 
 > Instructions: Only keep the one link you want your instructor(s) to use. This uses the `master` branch so will only have your newest notebook once you have merged your pull request for the week.
 
-<a href='https://mybinder.org/v2/gh/CUB-Computational-Tools/2020-ps-KevRozmiarek/binder-R?urlpath=git-pull?repo=https%3A%2F%2Fgithub.com%2FCUB-Computational-Tools%2F2020-ps-KevRozmiarek%26branch%3Dmaster%26urlpath%3Drstudio'><img src='https://img.shields.io/badge/launch%20final-R+RStudio-blue.svg'/></a>
+<a href='https://mybinder.org/v2/gh/CUB-Computational-Tools/2020-ps-KevRozmiarek/binder-python?urlpath=git-pull?repo=https%3A%2F%2Fgithub.com%2FCUB-Computational-Tools%2F2020-ps-KevRozmiarek%26branch%3Dweek6%26urlpath%3Dlab'><img src='https://img.shields.io/badge/launch%20draft-Py+Jupyter%20Lab-red.svg'/></a>
 
